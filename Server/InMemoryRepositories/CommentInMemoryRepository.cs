@@ -3,7 +3,7 @@ using RepositoryContracts;
 
 namespace InMemoryRepositories;
 
-public class CommentInMemoryRepository
+public class CommentInMemoryRepository : ICommentRepository
 {
     private List<Comment> comments = new List<Comment>();
     public Task<Comment> AddAsync(Comment comment)
