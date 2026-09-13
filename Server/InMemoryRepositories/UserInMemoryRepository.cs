@@ -7,6 +7,13 @@ public class UserInMemoryRepository : IUserRepository
 {
     private List<User> users = new List<User>();
 
+    public UserInMemoryRepository()
+    {
+        _ = AddAsync(new User("trmo", "1234")).Result;
+        _ = AddAsync(new User("mivi", "4321")).Result;
+        _ = AddAsync(new User("jknr", "1243")).Result;
+        _ = AddAsync(new User("alhe", "2143")).Result;
+    }
     public Task<User> AddAsync(User user)
     {
         // Auto-increment the ID: find max or default to 1 if empty

@@ -7,6 +7,19 @@ public class PostInMemoryRepository : IPostRepository
 {
    private List<Post> posts = new List<Post>();
    
+   public PostInMemoryRepository()
+   {
+      _ = AddAsync(new Post("Cat discussion", "Cats are pretty neat, sometimes.", 1)).Result;
+      _ = AddAsync(new Post("Cat discussion 2", "Cat dropped a dead bird in my bed. No longer neat.", 1)).Result;
+      _ = AddAsync(new Post("Dog discussion", "Dogs are just far superior to cats. EOD.", 3)).Result;
+      _ = AddAsync(new Post("Weather?", "So, does anyone else like weather?", 2)).Result;
+      _ = AddAsync(new Post("DNP QA", "This post is for DNP discussions, or if you need help with stuff.", 4)).Result;
+      _ = AddAsync(new Post("Best lawn mower?", "What's the bet lawn mower robot to mow my living room carpet?", 3)).Result;
+      //is.result .wait() safe
+      //in this it is safe because we are using completely synchronous, In-Memory repositories. There is no real asynchronous I/O, database, or network delay happening under the hood, so deadlocks cannot trigger.
+      //However, in a real-world system, it is not a good practice. If these repositories were later updated to connect to a real database (like SQL Server), using .Result blocks the execution thread and can easily cause a thread deadlock. The proper approach for production code is to use await all the way down."
+   }
+   
    public Task<Post> AddAsync(Post post)
    {
       post.Id = posts.Any()
